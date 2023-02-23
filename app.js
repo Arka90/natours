@@ -52,7 +52,7 @@ app.use(helmet());
 //         'https:',
 //         'http:',
 //         'blob:',
-//         'https://*.mapbox.com',
+//         'https://*.leaflet.com',
 //         'https://js.stripe.com',
 //         'https://*.cloudflare.com',
 //       ],
@@ -74,6 +74,46 @@ app.use(helmet());
 //     },
 //   },
 // });
+
+const defaultSrcUrls = ['https://js.stripe.com/'];
+
+const scriptSrcUrls = [
+  'https://unpkg.com/',
+  'https://tile.openstreetmap.org',
+  'https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js',
+  'https://js.stripe.com/v3/',
+];
+
+const styleSrcUrls = [
+  'https://unpkg.com/',
+  'https://tile.openstreetmap.org',
+  'https://fonts.googleapis.com/',
+];
+
+const connectSrcUrls = [
+  'https://*.stripe.com',
+  'https://unpkg.com',
+  'https://tile.openstreetmap.org',
+  'https://*.cloudflare.com',
+  'http://localhost:3000/api/v1/users/login',
+  'http://localhost/api/v1/bookings/checkout-session/',
+];
+
+const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'", ...defaultSrcUrls],
+      scriptSrc: ["'self'", ...scriptSrcUrls],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      fontSrc: ["'self'", ...fontSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      imgSrc: ["'self'", 'blob:', 'data:', 'https:'],
+      workerSrc: ["'self'", 'blob:'],
+    },
+  })
+);
 
 //Checking if the setup is in Development Env or Production Env
 if (process.env.NODE_ENV === 'development') {

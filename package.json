@@ -4,7 +4,8 @@
   "description": "Learning Node",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel watch --no-hmr ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
@@ -38,5 +39,8 @@
     "stripe": "^11.10.0",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
